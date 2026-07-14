@@ -1,0 +1,4 @@
+Flask>=3.0
+sympy>=1.12
+matplotlib>=3.8
+numpy>=1.26

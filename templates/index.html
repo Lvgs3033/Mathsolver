@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solvit — Math Problem Solver</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">∑</span>
+    <div>
+      <h1>Solvit</h1>
+      <p class="tagline">Exact answers, shown work — powered by SymPy &amp; Matplotlib</p>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Math tools">
+  <button class="tab active" data-tab="algebra" role="tab" aria-selected="true">
+    <span class="tab-num">01</span> Algebra
+  </button>
+  <button class="tab" data-tab="calculus" role="tab" aria-selected="false">
+    <span class="tab-num">02</span> Calculus
+  </button>
+  <button class="tab" data-tab="matrices" role="tab" aria-selected="false">
+    <span class="tab-num">03</span> Matrices
+  </button>
+  <button class="tab" data-tab="graph" role="tab" aria-selected="false">
+    <span class="tab-num">04</span> Graph
+  </button>
+</nav>
+
+<main>
+
+  <!-- ================= ALGEBRA ================= -->
+  <section class="panel active" id="panel-algebra">
+    <div class="panel-grid">
+      <div class="card">
+        <h2>Solve / Simplify / Factor / Expand</h2>
+
+        <div class="field-row">
+          <label for="alg-op">Operation</label>
+          <select id="alg-op">
+            <option value="solve">Solve equation</option>
+            <option value="simplify">Simplify</option>
+            <option value="factor">Factor</option>
+            <option value="expand">Expand</option>
+          </select>
+        </div>
+
+        <div class="field-row" id="alg-var-row">
+          <label for="alg-var">Variable</label>
+          <input id="alg-var" type="text" value="x" maxlength="3">
+        </div>
+
+        <div class="field-row">
+          <label for="alg-input">Expression / Equation</label>
+          <input id="alg-input" type="text" placeholder="e.g. 2*x + 3 = 7  or  x**2 - 5*x + 6"
+                 value="x**2 - 5*x + 6 = 0">
+        </div>
+
+        <button class="btn-solve" id="alg-run">Solve</button>
+        <p class="hint">Use <code>**</code> or <code>^</code> for powers, <code>*</code> for multiplication.
+          Functions: sin, cos, tan, exp, log, sqrt.</p>
+      </div>
+
+      <div class="card result-card" id="alg-result">
+        <h2>Steps</h2>
+        <div class="placeholder">Your step-by-step solution will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CALCULUS ================= -->
+  <section class="panel" id="panel-calculus">
+    <div class="panel-grid">
+      <div class="card">
+        <h2>Derivative / Integral / Limit</h2>
+
+        <div class="field-row">
+          <label for="calc-op">Operation</label>
+          <select id="calc-op">
+            <option value="derivative">Derivative</option>
+            <option value="integral">Integral</option>
+            <option value="limit">Limit</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <label for="calc-var">Variable</label>
+          <input id="calc-var" type="text" value="x" maxlength="3">
+        </div>
+
+        <div class="field-row">
+          <label for="calc-input">Expression f(x)</label>
+          <input id="calc-input" type="text" placeholder="e.g. x**3 + sin(x)*x" value="x**3 + sin(x)*x">
+        </div>
+
+        <div class="field-row" id="calc-order-row">
+          <label for="calc-order">Order (nth derivative)</label>
+          <input id="calc-order" type="number" value="1" min="1" max="5">
+        </div>
+
+        <div class="field-row hidden" id="calc-bounds-row">
+          <label>Definite bounds (optional)</label>
+          <div class="dual-input">
+            <input id="calc-lower" type="text" placeholder="lower">
+            <input id="calc-upper" type="text" placeholder="upper">
+          </div>
+        </div>
+
+        <div class="field-row hidden" id="calc-point-row">
+          <label for="calc-point">Point x →</label>
+          <input id="calc-point" type="text" placeholder="e.g. 0 or oo" value="0">
+        </div>
+
+        <div class="field-row hidden" id="calc-dir-row">
+          <label for="calc-dir">Direction</label>
+          <select id="calc-dir">
+            <option value="both">Both sides</option>
+            <option value="left">Left (-)</option>
+            <option value="right">Right (+)</option>
+          </select>
+        </div>
+
+        <button class="btn-solve" id="calc-run">Solve</button>
+        <p class="hint">For limits, use <code>oo</code> for infinity. Trig functions are in radians.</p>
+      </div>
+
+      <div class="card result-card" id="calc-result">
+        <h2>Steps</h2>
+        <div class="placeholder">Your step-by-step solution will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MATRICES ================= -->
+  <section class="panel" id="panel-matrices">
+    <div class="panel-grid">
+      <div class="card">
+        <h2>Matrix Operations</h2>
+
+        <div class="field-row">
+          <label for="mat-op">Operation</label>
+          <select id="mat-op">
+            <option value="add">A + B</option>
+            <option value="subtract">A − B</option>
+            <option value="multiply">A × B</option>
+            <option value="determinant">det(A)</option>
+            <option value="inverse">A⁻¹</option>
+            <option value="transpose">Aᵀ</option>
+            <option value="eigenvalues">Eigenvalues of A</option>
+            <option value="rank">rank(A)</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <label>Matrix A size</label>
+          <div class="dual-input">
+            <input id="matA-rows" type="number" value="2" min="1" max="6">
+            <span class="x">×</span>
+            <input id="matA-cols" type="number" value="2" min="1" max="6">
+          </div>
+        </div>
+        <div id="matA-grid" class="matrix-grid"></div>
+
+        <div id="matB-section">
+          <div class="field-row">
+            <label>Matrix B size</label>
+            <div class="dual-input">
+              <input id="matB-rows" type="number" value="2" min="1" max="6">
+              <span class="x">×</span>
+              <input id="matB-cols" type="number" value="2" min="1" max="6">
+            </div>
+          </div>
+          <div id="matB-grid" class="matrix-grid"></div>
+        </div>
+
+        <button class="btn-solve" id="mat-run">Compute</button>
+        <p class="hint">Entries can be integers, fractions (<code>1/2</code>) or symbols.</p>
+      </div>
+
+      <div class="card result-card" id="mat-result">
+        <h2>Steps</h2>
+        <div class="placeholder">Your step-by-step solution will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GRAPH ================= -->
+  <section class="panel" id="panel-graph">
+    <div class="panel-grid">
+      <div class="card">
+        <h2>Plot Functions</h2>
+
+        <div class="field-row">
+          <label for="graph-f1">f₁(x)</label>
+          <input id="graph-f1" type="text" placeholder="e.g. x**2" value="sin(x)">
+        </div>
+        <div class="field-row">
+          <label for="graph-f2">f₂(x) <span class="optional">optional</span></label>
+          <input id="graph-f2" type="text" placeholder="e.g. cos(x)">
+        </div>
+        <div class="field-row">
+          <label for="graph-f3">f₃(x) <span class="optional">optional</span></label>
+          <input id="graph-f3" type="text" placeholder="e.g. x">
+        </div>
+
+        <div class="field-row">
+          <label>x range</label>
+          <div class="dual-input">
+            <input id="graph-xmin" type="number" value="-10">
+            <span class="x">to</span>
+            <input id="graph-xmax" type="number" value="10">
+          </div>
+        </div>
+
+        <button class="btn-solve" id="graph-run">Plot</button>
+        <p class="hint">Separate curves are drawn per box; leave unused boxes blank.</p>
+      </div>
+
+      <div class="card result-card" id="graph-result">
+        <h2>Graph</h2>
+        <div class="placeholder">Your plot will appear here.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Built with Flask · SymPy · Matplotlib — exact symbolic computation, no approximation or guesswork.</p>
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
