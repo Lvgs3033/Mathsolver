@@ -1,5 +1,8 @@
 # Solvit — Math Problem Solver
 
+**Preview:** https://mathsolver-2.onrender.com/
+**Docker Image:** docker pull dhvanik23/mathsolver 
+
 A full-stack math problem solver: **Flask** backend, **HTML/CSS/JS** frontend,
 **SymPy** for exact symbolic algebra/calculus/matrices, **Matplotlib** for graph plotting.
 
